@@ -8,7 +8,7 @@ const GameBoard = (() => {
         const str = row.toString().concat(column.toString());
         const block = Block(str);
         board.push(block);
-        console.log("block inserted", `${i + 1}${j + 1}`);
+        console.log("block inserted,", str);
       }
     }
     console.log("GameBoard is now initialized.");
@@ -18,32 +18,39 @@ const GameBoard = (() => {
       if (block.getName() === position) return block;
     }
   };
-  const playerMark = (playerNumber, position) => {
+  // Condition has to be a string to be compatible with strict name check of the block.
+  const playerMark = (player, position) => {
     const block = getBlock(position);
-    block.updateCondition(playerNumber);
+    block.updateCondition(player);
   };
   return { init, playerMark, board }; // Remove board after testing!
 })();
 
 const Block = (name) => {
-  const blockName = name; // this.name = name created a mutation bug?!
-  let condition = 0;
+  let condition = "none";
   let occupier = "none";
-  const updateCondition = (playerNumber) => {
-    condition = playerNumber;
-    occupier = playerNumber === 1 ? "player one" : "player two";
+
+  const updateCondition = (player) => {
+    // If somebody is occupying the block send console error.
+    if (condition !== "none") {
+      console.error("ERROR: The block is occupied, choose a different one.");
+      return;
+    }
+    condition = player.getNumber();
+    occupier = player.getName();
   };
-  const getName = () => blockName;
+  const getName = () => name;
   const getCondition = () =>
-    console.log(`Block ${blockName} is occupied by: ${occupier}.`);
+    console.log(`Block ${getName()} is occupied by: ${occupier}.`);
 
   return { updateCondition, getName, getCondition };
 };
 
-const PlayerFactory = (name, symbol) => {
-  this.name = name;
-  this.symbol = symbol;
-  const getName = () => this.name;
-  const getSymbol = () => this.symbol;
-  return { getName, getSymbol };
+// I might add an array to store players, this will help when changing active player.
+
+const PlayerFactory = (name, number, symbol) => {
+  const getName = () => name;
+  const getNumber = () => number;
+  const getSymbol = () => symbol;
+  return { getName, getNumber, getSymbol };
 };
