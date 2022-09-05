@@ -10,7 +10,45 @@
   </head>
   <body>
     <div class="container">
-      <h1>Tic Tac Toe</h1>
+      <header>
+        <h1>Tic Tac Toe</h1>
+      </header>
+      <form id="options">
+        <div class="p1">
+          <input
+            type="text"
+            minlength="1"
+            maxlength="10"
+            placeholder="Player1"
+            name="p1name"
+            value="Player1"
+          />
+          <div class="radio1">
+            <label for="x1">X</label>
+            <input type="radio" name="p1symbol" id="X1" value="X" checked />
+            <label for="o1">O</label>
+            <input type="radio" name="p1symbol" id="O1" value="O" />
+          </div>
+        </div>
+        <div class="p2">
+          <input
+            type="text"
+            minlength="1"
+            maxlength="10"
+            placeholder="Player2"
+            name="p2name"
+            value="Player2"
+          />
+          <div class="radio2">
+            <label for="W2">W</label>
+            <input type="radio" name="p2symbol" id="W" value="W" />
+            <label for="Z2">Z</label>
+            <input type="radio" name="p2symbol" id="Z" value="Z" checked />
+          </div>
+        </div>
+        <button id="buttonStart" type="button">Play</button>
+      </form>
+      <div class="content"></div>
     </div>
   </body>
 </html>

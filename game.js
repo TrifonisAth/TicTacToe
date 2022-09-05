@@ -1,3 +1,8 @@
+import { GameBoard } from "./app.js";
+
 const game = (() => {
-  return {};
+  const start = () => {
+    GameBoard.init();
+  };
+  return { start };
 })();
