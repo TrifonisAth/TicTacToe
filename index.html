@@ -13,7 +13,7 @@
       <header>
         <h1>Tic Tac Toe</h1>
       </header>
-      <form id="options">
+      <form id="options" name="options">
         <div class="p1">
           <input
             type="text"
@@ -23,11 +23,12 @@
             name="p1name"
             value="Player1"
           />
-          <div class="radio1">
+          <div class="radio">
             <label for="x1">X</label>
             <input type="radio" name="p1symbol" id="X1" value="X" checked />
-            <label for="o1">O</label>
-            <input type="radio" name="p1symbol" id="O1" value="O" />
+            <label for="W1">W</label>
+            <input type="radio" name="p1symbol" id="W1" value="W" />
+            <input type="color" id="p1color" name="p1color" value="#0000ff" />
           </div>
         </div>
         <div class="p2">
@@ -39,11 +40,12 @@
             name="p2name"
             value="Player2"
           />
-          <div class="radio2">
-            <label for="W2">W</label>
-            <input type="radio" name="p2symbol" id="W" value="W" />
+          <div class="radio">
+            <label for="O2">O</label>
+            <input type="radio" name="p2symbol" id="O" value="O" checked />
             <label for="Z2">Z</label>
-            <input type="radio" name="p2symbol" id="Z" value="Z" checked />
+            <input type="radio" name="p2symbol" id="Z" value="Z" />
+            <input type="color" id="p2color" name="p2color" value="#ff0000" />
           </div>
         </div>
         <button id="buttonStart" type="button">Play</button>

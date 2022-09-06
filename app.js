@@ -1,48 +1,79 @@
+"use strict";
 const Game = (() => {
   const container = document.querySelector(".container");
   const content = document.querySelector(".content");
   const header = document.querySelector("header");
+  const buttonPlay = document.querySelector("#buttonStart");
+  const form = document.forms.options;
 
+  const players = [];
+  let p1;
+  let p2;
+  let activePlayer;
+
+  buttonPlay.addEventListener("click", () => {
+    form.classList.add("hidden");
+    startGame();
+  });
+
+  const handleClickEvent = (e) => {
+    const div = e.currentTarget;
+    if (GameBoard.playerMark(activePlayer, div.dataset.number)) {
+      div.style.color = activePlayer.getColor();
+      div.textContent = activePlayer.getSymbol();
+      if (GameBoard.victoryStatus()) {
+        renderGameStatus();
+        removeClickEvents();
+        renderPlayAgainButton();
+        // GameBoard.resetBoard();
+        // End the game.
+      }
+      changeActivePlayer();
+    }
+  };
+
+  const removeRenderedEls = () => {
+    container.removeChild(container.lastChild);
+    container.removeChild(container.lastChild);
+  };
+
+  const removeClickEvents = () => {
+    for (let div of content.children) {
+      div.removeEventListener("click", handleClickEvent);
+    }
+  };
   const renderBlocks = () => {
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
         const div = document.createElement("div");
         div.classList.add("block");
         div.dataset.number = (i + 1).toString().concat((j + 1).toString());
-        div.addEventListener("click", () => {
-          // console.log(div.dataset.number);
-          // TODO Call a func to check if you can mark the block and then change textcontent and activePlayer.
-          if (GameBoard.playerMark(activePlayer, div.dataset.number)) {
-            div.textContent = activePlayer.getSymbol();
-            if (GameBoard.victoryStatus()) {
-              renderGameStatus();
-              // GameBoard.resetBoard();
-              // End the game.
-            }
-            changeActivePlayer();
-          }
-        });
+        div.addEventListener("click", handleClickEvent);
         content.appendChild(div);
       }
     }
-  };
-
-  const renderStartingOptions = () => {
-    const form = document.createElement("form");
-    const inputP1Name = document.createElement("input");
-    const inputP1Symbol = document.createElement("input");
-    inputP1Name.setAttribute("type", "text");
-    inputP1Name.setAttribute("maxLength", 10);
-    inputP1Name.setAttribute("placeholder", "Player1");
-    inputP1Symbol.setAttribute("type", "radio");
-    header.insertAdjacentElement("beforeend", inputP1Name);
-    header.insertAdjacentElement("beforeend", inputP1Symbol);
   };
 
   const renderGameStatus = () => {
     const p = document.createElement("p");
     p.textContent = `${activePlayer.getName()} won!`;
     container.appendChild(p);
+  };
+
+  const renderPlayAgainButton = () => {
+    const btn = document.createElement("button");
+    btn.textContent = "Play Again";
+    btn.classList.add("playAgain");
+    btn.addEventListener("click", handlePlayAgain);
+    container.appendChild(btn);
+  };
+
+  const handlePlayAgain = () => {
+    GameBoard.resetBoard();
+    GameBoard.resetCounterOfMarks();
+    removeRenderedEls();
+    startGame(false);
+    activePlayer = p1;
   };
 
   const GameBoard = (() => {
@@ -79,6 +110,10 @@ const Game = (() => {
 
     const getCounterOfMarks = () => {
       return counterOfMarks;
+    };
+
+    const resetCounterOfMarks = () => {
+      counterOfMarks = 0;
     };
 
     const resetBoard = () => {
@@ -127,6 +162,7 @@ const Game = (() => {
       getCounterOfMarks,
       victoryStatus,
       resetBoard,
+      resetCounterOfMarks,
     }; // Remove board after testing!
   })();
 
@@ -156,31 +192,40 @@ const Game = (() => {
 
   // I might add an array to store players, this will help when changing active player.
 
-  const PlayerFactory = (name, number, symbol) => {
+  const PlayerFactory = (name, number, symbol, color) => {
     const getName = () => name;
     const getNumber = () => number;
     const getSymbol = () => symbol;
-    return { getName, getNumber, getSymbol };
+    const getColor = () => color;
+    return { getName, getNumber, getSymbol, getColor };
   };
-
-  const players = [];
-  const p1 = PlayerFactory("player1", "1", "O");
-  const p2 = PlayerFactory("player2", "2", "X");
-  players.push(p1, p2);
-  let activePlayer = p1;
 
   const changeActivePlayer = () => {
     activePlayer = players[0] !== activePlayer ? players[0] : players[1];
   };
 
-  const startGame = () => {
+  const setOptions = () => {
+    const p1Name = form.querySelector("input[name='p1name']").value;
+    const p1Symbol = form.querySelector("input[name='p1symbol']:checked").value;
+    const p1Color = form.querySelector("input[name='p1color']").value;
+    const p2Name = form.querySelector("input[name='p2name']").value;
+    const p2Symbol = form.querySelector("input[name='p2symbol']:checked").value;
+    const p2Color = form.querySelector("input[name='p2color']").value;
+
+    p1 = PlayerFactory(p1Name, "1", p1Symbol, p1Color);
+    p2 = PlayerFactory(p2Name, "2", p2Symbol, p2Color);
+    players.push(p1, p2);
+    activePlayer = p1;
+  };
+
+  const startGame = (setNewOptions = true) => {
     GameBoard.init(); // Initialize logic.
-    // renderStartingOptions();
-    // renderBlocks(); // Render blocks.
+    renderBlocks(); // Render blocks.
+    if (setNewOptions) setOptions();
   };
 
   return { startGame };
 })();
 
 // Testing
-Game.startGame();
+// Game.startGame();

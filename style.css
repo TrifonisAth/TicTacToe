@@ -3,12 +3,10 @@ body {
 }
 
 h1 {
-  filter: blur(0.1rem);
-  font-size: 3.5rem;
+  font-size: 3rem;
 }
 
-form#options {
-  filter: blur(0);
+form {
   background-color: aliceblue;
   padding: 2rem;
   border: solid 1px gray;
@@ -34,7 +32,14 @@ label {
 }
 
 input[type="radio"] {
-  margin: 1rem;
+  margin: 2rem;
+}
+
+.radio {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 button {
@@ -65,14 +70,16 @@ button:hover {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   height: 40vh;
+  min-height: 320px;
   width: 70vw;
+  min-width: 250px;
 }
 
 .content > div {
   color: red;
   background-color: whitesmoke;
   border: solid 2px black;
-  font-size: 7rem;
+  font-size: 5rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -80,6 +87,19 @@ button:hover {
 
 .container > p {
   color: tomato;
-  font-size: 4.5rem;
-  margin: 3rem;
+  font-size: 3rem;
+  margin-top: 1.5rem;
+}
+
+.hidden {
+  display: none;
+}
+
+button.playAgain {
+  background-color: tomato;
+  color: aliceblue;
+  font-size: 2rem;
+  border-radius: 1.5rem;
+  font-weight: 600;
+  margin-top: 1rem;
 }
