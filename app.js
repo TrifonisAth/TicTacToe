@@ -62,6 +62,7 @@ const Game = (() => {
     p.textContent = tie
       ? "There is a Tie..."
       : `${activePlayer.getName()} won!`;
+    if (!tie) p.style.color = activePlayer.getColor();
     container.appendChild(p);
   };
 
