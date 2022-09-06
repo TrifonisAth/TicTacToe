@@ -25,10 +25,13 @@ const Game = (() => {
         renderGameStatus();
         removeClickEvents();
         renderPlayAgainButton();
-        // GameBoard.resetBoard();
-        // End the game.
+      } else if (GameBoard.getCounterOfMarks() === 9) {
+        renderGameStatus(true); // tie == true.
+        removeClickEvents();
+        renderPlayAgainButton();
+      } else {
+        changeActivePlayer();
       }
-      changeActivePlayer();
     }
   };
 
@@ -54,9 +57,11 @@ const Game = (() => {
     }
   };
 
-  const renderGameStatus = () => {
+  const renderGameStatus = (tie = false) => {
     const p = document.createElement("p");
-    p.textContent = `${activePlayer.getName()} won!`;
+    p.textContent = tie
+      ? "There is a Tie..."
+      : `${activePlayer.getName()} won!`;
     container.appendChild(p);
   };
 
