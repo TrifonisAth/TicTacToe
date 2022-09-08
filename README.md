@@ -9,7 +9,7 @@ You can check it out here -> https://trifonisath.github.io/TicTacToe/
 
 ## Screenshots
 
-(https://user-images.githubusercontent.com/81590123/189111646-47eecdb0-7b14-40a9-b0e6-59759070e21c.png)
+![](https://user-images.githubusercontent.com/81590123/189111646-47eecdb0-7b14-40a9-b0e6-59759070e21c.png)
 
 ## Roadmap
 
