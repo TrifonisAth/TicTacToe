@@ -109,7 +109,6 @@ const Game = (() => {
           const str = row.toString().concat(column.toString());
           const block = Block(str);
           board.push(block);
-          // console.log("block inserted,", str);
         }
       }
       console.log("GameBoard is now initialized.");
@@ -170,7 +169,7 @@ const Game = (() => {
           board[4].getCondition() === board[6].getCondition() &&
           board[2].getCondition() !== "none")
       ) {
-        return true; // Change it to boolean.
+        return true;
       } else return false;
     };
 
@@ -208,8 +207,6 @@ const Game = (() => {
     };
     return { updateCondition, getName, getConditionLog, getCondition };
   };
-
-  // I might add an array to store players, this will help when changing active player.
 
   const PlayerFactory = (name, number, symbol, color) => {
     const getName = () => name;
