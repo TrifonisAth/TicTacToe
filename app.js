@@ -10,6 +10,7 @@ const Game = (() => {
   let p1;
   let p2;
   let activePlayer;
+  let gameLevel;
 
   buttonPlay.addEventListener("click", () => {
     form.classList.add("hidden");
@@ -35,16 +36,17 @@ const Game = (() => {
     }
   };
 
-  const removeRenderedEls = () => {
-    container.removeChild(container.lastChild);
-    container.removeChild(container.lastChild);
-  };
-
   const removeClickEvents = () => {
     for (let div of content.children) {
       div.removeEventListener("click", handleClickEvent);
     }
   };
+
+  const removeRenderedEls = () => {
+    container.removeChild(container.lastChild);
+    container.removeChild(container.lastChild);
+  };
+
   const renderBlocks = () => {
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
@@ -82,6 +84,20 @@ const Game = (() => {
     activePlayer = p1;
   };
 
+  // Computer AI move.
+  // TODO use the code to make com moves !!!!
+  // Random move.
+  const comRandom = () => {
+    let emptyBlocks = [];
+    for (let block of GameBoard.board) {
+      if (block.getCondition() === "none") emptyBlocks.push(block);
+    }
+    const lastIndex = emptyBlocks.length - 1;
+    const randInt = Math.floor(Math.random() * (lastIndex + 1));
+    console.log(randInt, "com move.");
+    return emptyBlocks[randInt].getName();
+  };
+
   const GameBoard = (() => {
     let board = [];
     let counterOfMarks = 0; // Number of marks inside the board.
@@ -107,10 +123,7 @@ const Game = (() => {
     const playerMark = (player, position) => {
       const block = getBlock(position);
       const log = block.updateCondition(player);
-      block.getConditionLog();
-      console.log(log);
       counterOfMarks += log;
-      console.log(counterOfMarks);
       return log;
     };
 
@@ -232,6 +245,3 @@ const Game = (() => {
 
   return { startGame };
 })();
-
-// Testing
-// Game.startGame();
