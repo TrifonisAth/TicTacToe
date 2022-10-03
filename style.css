@@ -115,4 +115,9 @@ button.playAgain {
         width: 320px;
     
     }
+
+    form#options>input{
+        max-width: 290px;
+}
+
 }
