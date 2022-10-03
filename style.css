@@ -111,3 +111,8 @@ button.playAgain {
                 height: 100vh;
             }
 
+    form#options{
+        width: 70vw;
+    
+    }
+}
