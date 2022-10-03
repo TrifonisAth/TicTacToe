@@ -103,3 +103,11 @@ button.playAgain {
   font-weight: 600;
   margin-top: 1rem;
 }
+
+@media screen and (max-width: 720px) {
+            body {
+                
+                width: 100vw;
+                height: 100vh;
+            }
+
