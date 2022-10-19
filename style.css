@@ -104,20 +104,3 @@ button.playAgain {
   margin-top: 1rem;
 }
 
-@media screen and (max-width: 720px) {
-            body {
-                
-                width: 100vw;
-                height: 100vh;
-            }
-
-    form#options{
-        width: 320px;
-    
-    }
-
-    form#options>input{
-        max-width: 290px;
-}
-
-}
